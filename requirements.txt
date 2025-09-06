@@ -1,0 +1,7 @@
+ipinfo_django
+django-ratelimit
+redis
+django-ipware
+scikit-learn
+django-ip-geolocation
+celery

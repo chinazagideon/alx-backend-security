@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +29,29 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#create beat
+CELERY_BEAT_SCHEDULE = {
+    'flag-suspicious-ips-hourly': {
+        'task': 'ip_tracking.tasks.flag_suspicious_ips',
+        'schedule': crontab(minute=0),
+    }
+}
+
+
+IP_GEOLOCATION_SETTINGS = {
+    'BACKEND': 'django_ip_geolocation.backends.IPGeolocationAPI',
+    'BACKEND_API_KEY': os.getenv('IP_GEOLOCATION_KEY'),
+    'BACKEND_EXTRA_PARAMS': {},
+    'BACKEND_USERNAME': os.getenv('IP_GEOLOCATION_KEY_USER'),
+    'RESPONSE_HEADER': 'X-IP-Geolocation',
+    'ENABLE_REQUEST_HOOK': True,
+    'ENABLE_RESPONSE_HOOK': True,
+    'ENABLE_COOKIE': False,
+    'FORCE_IP_ADDR': None,
+    'USER_CONSENT_VALIDATOR': None
+}
+
+IPINFO_TOKEN = os.getenv('IPINFO_TOKEN')
 
 # Application definition
 
@@ -38,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ip_tracking',
+    'ipinfo_django',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'ip_tracking.middleware.IPTrackingMiddleware',
+
 ]
 
 ROOT_URLCONF = 'ip_tracking.urls'
