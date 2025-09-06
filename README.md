@@ -2,15 +2,15 @@
 <p>This project is a Django application designed to enhance web application security by tracking IP addresses, managing IP blacklists, and performing analytics and anomaly detection. It provides a robust, layered defense against malicious traffic and bot activity.</p>
 
 ## Features
-##### IP Logging: A custom middleware logs every request's IP address, path, and timestamp for analysis.
+#### IP Logging: A custom middleware logs every request's IP address, path, and timestamp for analysis.
 
-##### IP Blacklisting: A Django management command and middleware work together to block specific IP addresses from accessing the site.
+### IP Blacklisting: A Django management command and middleware work together to block specific IP addresses from accessing the site.
 
-##### Geolocation Analytics: The app uses the ipinfo_django library to enrich logged IP data with country and city information. The data is cached for 24 hours to ensure high performance.
+### Geolocation Analytics: The app uses the ipinfo_django library to enrich logged IP data with country and city information. The data is cached for 24 hours to ensure high performance.
 
-##### Rate Limiting: The django-ratelimit package is used to restrict the number of requests per minute, preventing brute-force attacks and abuse of sensitive views like login pages.
+### Rate Limiting: The django-ratelimit package is used to restrict the number of requests per minute, preventing brute-force attacks and abuse of sensitive views like login pages.
 
-##### Anomaly Detection: An hourly Celery task analyzes request logs to automatically flag and store suspicious IPs that either exceed a request threshold or attempt to access sensitive paths like /admin or /login.
+### Anomaly Detection: An hourly Celery task analyzes request logs to automatically flag and store suspicious IPs that either exceed a request threshold or attempt to access sensitive paths like /admin or /login.
 
 ## Models
 <p>The project uses several key models to store and manage security data.</p>
