@@ -4,13 +4,17 @@
 ## Features
 #### IP Logging: A custom middleware logs every request's IP address, path, and timestamp for analysis.
 
-### IP Blacklisting: A Django management command and middleware work together to block specific IP addresses from accessing the site.
+### IP Blacklisting: 
+<p>A Django management command and middleware work together to block specific IP addresses from accessing the site.</p>
 
-### Geolocation Analytics: The app uses the ipinfo_django library to enrich logged IP data with country and city information. The data is cached for 24 hours to ensure high performance.
+### Geolocation Analytics: 
+<p>The app uses the ipinfo_django library to enrich logged IP data with country and city information. The data is cached for 24 hours to ensure high performance.</p>
 
-### Rate Limiting: The django-ratelimit package is used to restrict the number of requests per minute, preventing brute-force attacks and abuse of sensitive views like login pages.
+### Rate Limiting: 
+<p>The django-ratelimit package is used to restrict the number of requests per minute, preventing brute-force attacks and abuse of sensitive views like login pages.</p>
 
-### Anomaly Detection: An hourly Celery task analyzes request logs to automatically flag and store suspicious IPs that either exceed a request threshold or attempt to access sensitive paths like /admin or /login.
+### Anomaly Detection: 
+<p>An hourly Celery task analyzes request logs to automatically flag and store suspicious IPs that either exceed a request threshold or attempt to access sensitive paths like /admin or /login.</p>
 
 ## Models
 <p>The project uses several key models to store and manage security data.</p>
