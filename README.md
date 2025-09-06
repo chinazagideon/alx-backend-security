@@ -2,7 +2,8 @@
 <p>This project is a Django application designed to enhance web application security by tracking IP addresses, managing IP blacklists, and performing analytics and anomaly detection. It provides a robust, layered defense against malicious traffic and bot activity.</p>
 
 ## Features
-#### IP Logging: A custom middleware logs every request's IP address, path, and timestamp for analysis.
+#### IP Logging: 
+<p>A custom middleware logs every request's IP address, path, and timestamp for analysis.</p>
 
 ### IP Blacklisting: 
 <p>A Django management command and middleware work together to block specific IP addresses from accessing the site.</p>
