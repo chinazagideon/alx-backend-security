@@ -68,6 +68,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ipinfo_django',
+    'rest_framework',
+    'drf_yasg',
     'ip_tracking',
 ]
 
@@ -82,7 +84,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_ip_geolocation.middleware.IpGeolocationMiddleware',
     'ip_tracking.middleware.IPTrackingMiddleware',
-
+    
 ]
 
 ROOT_URLCONF = 'ip_tracking.urls'
