@@ -1,8 +1,9 @@
 services:
   # The Web Service for your Django app
   - type: web
-    name: django-web
-    env: python
+    name: django-ip-tracking
+    plan: free
+    # env: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn ip_tracking.wsgi:application"
     envVars:
@@ -38,7 +39,7 @@ services:
   # The Background Worker for Celery
   - type: worker
     name: celery-worker
-    env: python
+    # env: python
     buildCommand: "./build.sh"
     startCommand: "celery -A ip_tracking worker --loglevel=info"
     envVars:
