@@ -12,7 +12,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: "*.onrender.com"
+        value: "*.onrender.com,django-ip-tracking.onrender.com"
       - key: CELERY_BROKER_URL
         fromService:
           type: redis
