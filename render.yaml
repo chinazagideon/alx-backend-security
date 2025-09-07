@@ -39,14 +39,11 @@ services:
   # The Background Worker for Celery
   - type: worker
     name: celery-worker
+    plan: free
     env: python
     buildCommand: "./build.sh"
     startCommand: "celery -A ip_tracking worker --loglevel=info"
     envVars:
-      - key: DEBUG
-        value: "False"
-      - key: SECRET_KEY
-        generateValue: true
       - key: CELERY_BROKER_URL
         fromService:
           type: redis
@@ -61,7 +58,6 @@ services:
         fromDatabase:
           name: iptracking-postgre-db
           property: connectionString
-
   # The Redis Key-Value store as a message broker
   - type: redis
     ipAllowList:
