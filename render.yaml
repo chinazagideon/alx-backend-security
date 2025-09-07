@@ -11,7 +11,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: "your-app-name.onrender.com"
+        value: "*.onrender.com"
       - key: CELERY_BROKER_URL
         fromService:
           type: redis
@@ -23,8 +23,7 @@ services:
           name: redis-service
           property: connectionString
       - key: DATABASE_URL
-        fromService:
-          type: pserv
+        fromDatabase:
           name: postgres-db
           property: connectionString
       - key: GEO_BACKEND
@@ -58,18 +57,17 @@ services:
           name: redis-service
           property: connectionString
       - key: DATABASE_URL
-        fromService:
-          type: pserv
+        fromDatabase:
           name: postgres-db
           property: connectionString
 
   # The Redis Key-Value store as a message broker
   - type: redis
+    ipAllowList:
+      - "0.0.0.0/0"
     name: redis-service
     plan: starter
 
-  # PostgreSQL Database
-  - type: pserv
-    name: postgres-db
-    env: postgresql
+databases:
+  - name: postgres-db
     plan: starter
