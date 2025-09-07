@@ -65,8 +65,6 @@ services:
 
   # The Redis Key-Value store as a message broker
   - type: redis
-    ipAllowList:
-      - {0.0.0.0/0}
     name: redis-service
     plan: starter
 
