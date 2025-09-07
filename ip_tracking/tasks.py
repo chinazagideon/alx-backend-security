@@ -45,4 +45,3 @@ def flag_suspicious_ips(ip_address, reason):
             ip_address=ip,
             defaults = {'reason': 'Accessed sensitive paths'}
         )
-    
