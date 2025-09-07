@@ -28,7 +28,7 @@ class IPTrackingMiddleware:
         
         #return geolocation data from cache if ip address is in cache
         geolocation = cache.get(request.META.get("REMOTE_ADDR"))
-        if not geolocation:
+        if not geolocation and request.geolocation:
             #get geolocation data from the request
             geolocation = request.geolocation
             #set geolocation data in cache for 24 hours
@@ -39,8 +39,8 @@ class IPTrackingMiddleware:
         path = request.path
 
         # Get the geolocation data from the cache if not in cache, get it from the request
-        country = geolocation.get("country")
-        city = geolocation.get("city")
+        country = geolocation.get("country") if geolocation else request.geolocation.get("country")
+        city = geolocation.get("city") if geolocation else request.geolocation.get("city")
 
         # Log the request
         RequestLog.objects.create(

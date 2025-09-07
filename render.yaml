@@ -1,0 +1,77 @@
+services:
+  # The Web Service for your Django app
+  - type: web
+    name: django-web
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn ip_tracking.wsgi:application"
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "your-app-name.onrender.com"
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: redis
+          name: redis-service
+          property: connectionString
+      - key: CELERY_RESULT_BACKEND
+        fromService:
+          type: redis
+          name: redis-service
+          property: connectionString
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: postgres-db
+          property: connectionString
+      - key: GEO_BACKEND
+        value: "django_ip_geolocation.backends.IPGeolocationAPI"
+      - key: GEO_IP_BACKEND_API_KEY
+        value: "your-geolocation-api-key"
+      - key: GEO_IP_BACKEND_USERNAME
+        value: "your-geolocation-username"
+      - key: GEO_RESPONSE_HEADER
+        value: "X-IP-Geolocation"
+
+  # The Background Worker for Celery
+  - type: worker
+    name: celery-worker
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "celery -A ip_tracking worker --loglevel=info"
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CELERY_BROKER_URL
+        fromService:
+          type: redis
+          name: redis-service
+          property: connectionString
+      - key: CELERY_RESULT_BACKEND
+        fromService:
+          type: redis
+          name: redis-service
+          property: connectionString
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: postgres-db
+          property: connectionString
+
+  # The Redis Key-Value store as a message broker
+  - type: redis
+    ipAllowList:
+      - {0.0.0.0/0}
+    name: redis-service
+    plan: starter
+
+  # PostgreSQL Database
+  - type: pserv
+    name: postgres-db
+    env: postgresql
+    plan: starter

@@ -1,3 +1,4 @@
+Django==5.2.6
 ipinfo_django
 django-ratelimit
 redis
@@ -5,3 +6,9 @@ django-ipware
 scikit-learn
 django-ip-geolocation
 celery
+python-dotenv
+celery[redis]
+gunicorn
+dj-database-url
+psycopg2-binary
+whitenoise

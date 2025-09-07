@@ -7,6 +7,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django_ratelimit.decorators import ratelimit
+from django.shortcuts import render
 
 def get_rate(group, request):
     """
@@ -17,6 +18,12 @@ def get_rate(group, request):
     else:
         return '5/m'
     
+def home(request):
+    """
+    my home view
+    """
+    return render(request, 'index.html')
+
 @ratelimit(key='ip', rate=get_rate, block=True)
 def login_view(request):
     """
