@@ -69,6 +69,6 @@ services:
     name: redis-service
     plan: starter
 
-databases:
-  - name: postgres-db
-    plan: starter
+# databases:
+#   - name: postgres-db
+#     plan: starter
